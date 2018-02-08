@@ -4,34 +4,41 @@ const defaults = {
   credentials: false,
 };
 
+const getOrigin = (options, handler) => {
+  if (Object.prototype.hasOwnProperty.call(handler.response.headers, 'Access-Control-Allow-Origin')) {
+    return handler.response.headers['Access-Control-Allow-Origin'];
+  }
+  if (options.credentials) {
+    handler.event.headers = handler.event.headers || {};
+
+    if (options.origin === '*' && Object.prototype.hasOwnProperty.call(handler.event.headers, 'Origin')) {
+      return handler.event.headers.Origin;
+    }
+  }
+  return options.origin;
+};
+
 const addCorsHeaders = (opts, handler, next) => {
   const options = Object.assign({}, defaults, opts);
 
   if (Object.prototype.hasOwnProperty.call(handler.event, 'httpMethod')) {
     handler.response = handler.response || {};
     handler.response.headers = handler.response.headers || {};
-    let corsAllowed = false;
-    if (!Object.prototype.hasOwnProperty.call(handler.response.headers, 'Access-Control-Allow-Origin')) {
-      if (options.origin instanceof RegExp) {
-        if (handler.event.headers.Origin.match(options.origin)) {
-          corsAllowed = true;
-          handler.response.headers['Access-Control-Allow-Origin'] = handler.event.headers.Origin;
-        }
-      } else if (options.credentials) {
-        corsAllowed = true;
-        handler.response.headers['Access-Control-Allow-Origin'] = handler.event.headers.Origin;
-      } else {
-        corsAllowed = true;
-        handler.response.headers['Access-Control-Allow-Origin'] = options.origin;
-      }
+
+    // Check if already setup the header Access-Control-Allow-Credentials
+    if (Object.prototype.hasOwnProperty.call(handler.response.headers, 'Access-Control-Allow-Credentials')) {
+      options.credentials = JSON.parse(handler.response.headers['Access-Control-Allow-Credentials']);
     }
-    if (corsAllowed && !Object.prototype.hasOwnProperty.call(handler.response.headers, 'Access-Control-Allow-Credentials') && options.credentials) {
-      handler.response.headers['Access-Control-Allow-Credentials'] = 'true';
+    if (options.credentials) {
+      handler.response.headers['Access-Control-Allow-Credentials'] = String(options.credentials);
     }
-    if (corsAllowed && !Object.prototype.hasOwnProperty.call(handler.response.headers, 'Access-Control-Allow-Headers')) {
+    handler.response.headers['Access-Control-Allow-Origin'] = getOrigin(options, handler);
+
+    if (!Object.prototype.hasOwnProperty.call(handler.response.headers, 'Access-Control-Allow-Headers')) {
       handler.response.headers['Access-Control-Allow-Headers'] = options.headers;
     }
   }
+
   next();
 };
 

@@ -1,0 +1,50 @@
+{
+  "name": "middy-cors-extended",
+  "version": "0.0.1",
+  "description": "Extends CORS middleware for middy",
+  "main": "index.js",
+  "scripts": {
+    "test:lint": "eslint --ignore-pattern='node_modules/' --ignore-pattern='coverage/' .",
+    "test": "npm run test:lint",
+    "release:tag": "git tag $npm_package_version && git push --tags",
+    "precommit": "npm test",
+    "prepush": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miki79/middy-cors.git"
+  },
+  "keywords": [
+    "Middy",
+    "AWS",
+    "Middleware",
+    "Lambda",
+    "CORS",
+    "Serverless"
+  ],
+  "author": "Michele Giardi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/miki79/middy-cors/issues"
+  },
+  "homepage": "https://github.com/miki79/middy-cors#readme",
+  "devDependencies": {
+    "babel-jest": "^22.0.0",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.17.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "husky": "^0.14.3",
+    "jest": "^22.2.1",
+    "middy": "^0.8.9"
+  },
+  "jest": {    
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ]
+  },
+  "dependencies": {
+    "@types/aws-lambda": "0.0.31"
+  }
+}

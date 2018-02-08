@@ -8,12 +8,9 @@ const getOrigin = (options, handler) => {
   if (Object.prototype.hasOwnProperty.call(handler.response.headers, 'Access-Control-Allow-Origin')) {
     return handler.response.headers['Access-Control-Allow-Origin'];
   }
-  if (options.credentials) {
-    handler.event.headers = handler.event.headers || {};
-
-    if (options.origin === '*' && Object.prototype.hasOwnProperty.call(handler.event.headers, 'Origin')) {
-      return handler.event.headers.Origin;
-    }
+  handler.event.headers = handler.event.headers || {};
+  if (options.credentials && options.origin === '*' && Object.prototype.hasOwnProperty.call(handler.event.headers, 'Origin')) {
+    return handler.event.headers.Origin;
   }
   return options.origin;
 };

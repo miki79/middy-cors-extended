@@ -1,6 +1,6 @@
 {
   "name": "middy-cors-extended",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Extends CORS middleware for middy",
   "main": "index.js",
   "scripts": {

@@ -33,3 +33,12 @@ jobs:
       - run:
           name: coverage reporting
           command: npm run coverage:submit
+      - run:
+          name: configure NPM registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+      - deploy:
+          name: publish
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                npm publish && npm run release:tag;
+            fi 

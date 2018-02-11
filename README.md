@@ -9,27 +9,22 @@ Sets CORS headers (Access-Control-Allow-Origin, Access-Control-Allow-Headers and
 
 Sets headers in after and onError phases.
 
-## Options
+### Options
 
-origin (string) (optional): origin to put in the header (default: "*")
-headers (string) (optional): comma list of headers to put in Access-Control-Allow-Headers (default: "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent")
-credentials (boolean) (optional): if true, set Access-Control-Allow-Credentials to true, and put Access-Control-Allow-Origin as the Origin request header.
+- origin (string) (optional): origin to put in the header (default: "*")
+- headers (string) (optional): comma list of headers to put in Access-Control-Allow-Headers (default: "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent")
+- credentials (boolean) (optional): if true, set Access-Control-Allow-Credentials to true, and put Access-Control-Allow-Origin as the Origin request header.
 
 
-## Sample usage
-```
+### Sample usage
+```javascript
+const middy = require('middy');
+const { cors } = require('middy/middlewares');
 
-const middy = require('middy')
-const { cors } = require('middy/middlewares')
-
-const handler = middy((event, context, cb) => {
-  cb(null, {})
+const handler = middy((event, context, callback) => {
+  callback(null, {});
 })
 
-handler.use(cors())
+handler.use(cors({origin:'http://www.google.co.uk',credentials:true}));
 
-// when Lambda runs the handler...
-handler({}, {}, (_, response) => {
-  expect(response.headers['Access-Control-Allow-Origin']).toEqual('*')
-})
 ```

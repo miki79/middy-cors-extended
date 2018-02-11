@@ -1,6 +1,6 @@
 {
   "name": "middy-cors-extended",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Extends CORS middleware for middy",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/miki79/middy-cors.git"
+    "url": "git+https://github.com/miki79/middy-cors-extended.git"
   },
   "keywords": [
     "Middy",
@@ -27,9 +27,9 @@
   "author": "Michele Giardi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/miki79/middy-cors/issues"
+    "url": "https://github.com/miki79/middy-cors-extended/issues"
   },
-  "homepage": "https://github.com/miki79/middy-cors#readme",
+  "homepage": "https://github.com/miki79/middy-cors-extended#readme",
   "devDependencies": {
     "babel-jest": "^22.0.0",
     "babel-preset-env": "^1.6.1",

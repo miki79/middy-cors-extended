@@ -39,7 +39,7 @@
     "eslint-plugin-import": "^2.8.0",
     "husky": "^0.14.3",
     "jest": "^22.2.1",
-    "middy": "^0.8.9"
+    "middy": "^0.27.0"
   },
   "jest": {
     "collectCoverageFrom": [

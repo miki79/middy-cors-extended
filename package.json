@@ -39,6 +39,7 @@
     "eslint-plugin-import": "^2.17.3",
     "husky": "^2.3.0",
     "jest": "^24.8.0",
+    "lodash": "^4.17.14",
     "middy": "^0.27.0"
   },
   "jest": {

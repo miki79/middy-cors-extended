@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:6.10
+      - image: circleci/node:lts
 
     working_directory: ~/middy
 
@@ -11,9 +11,9 @@ jobs:
 
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
-      
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+
       - run:
           name: configure NPM registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
@@ -26,7 +26,7 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-        
+
       - run:
           name: unit tests
           command: npm test
@@ -40,6 +40,3 @@ jobs:
           name: publish
           branch: ["master"]
           command: npm publish && npm run release:tag;
-            
-                
-            
